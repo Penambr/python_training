@@ -14,7 +14,7 @@ class test_add_user(unittest.TestCase):
         self.wd = WebDriver(capabilities={"marionette": False})
         self.wd.implicitly_wait(60)
     
-    def test_test_add_user(self):
+    def test_add_user(self):
         wd = self.wd
         self.open_webpage(wd)
         self.login(wd, username="admin", password="secret")
@@ -23,6 +23,18 @@ class test_add_user(unittest.TestCase):
                          work="fhgfdgh", fax="fjhfgd", email="dfs@fgd.com")
         self.return_to_users_page(wd)
         self.logout(wd)
+
+
+    def test_add_empty_user(self):
+        wd = self.wd
+        self.open_webpage(wd)
+        self.login(wd, username="admin", password="secret")
+        self.open_user_creation(wd)
+        self.create_user(wd, firs_name="", middle_name="", last_name="", nick_name="", title="", companyname="", address="", home="", mobile="",
+                         work="", fax="", email="")
+        self.return_to_users_page(wd)
+        self.logout(wd)
+
 
     def logout(self, wd):
         # logout
