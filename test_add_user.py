@@ -18,11 +18,9 @@ class test_add_user(unittest.TestCase):
         wd = self.wd
         # open webpage
         wd.get("http://localhost/addressbook/")
-        wd.find_element_by_id("content").click()
-        wd.get("http://localhost/addressbook/")
+        #login
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
-        #login
         wd.find_element_by_name("user").send_keys("admin")
         wd.find_element_by_id("LoginForm").click()
         wd.find_element_by_name("pass").click()
