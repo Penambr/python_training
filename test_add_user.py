@@ -17,7 +17,7 @@ class test_add_user(unittest.TestCase):
     def test_test_add_user(self):
         wd = self.wd
         self.open_webpage(wd)
-        self.login(wd)
+        self.login(wd, username="admin", password="secret")
         self.open_user_creation(wd)
         self.create_user(wd)
         self.return_to_users_page(wd)
@@ -78,15 +78,15 @@ class test_add_user(unittest.TestCase):
         # init user creation
         wd.find_element_by_link_text("add new").click()
 
-    def login(self, wd):
+    def login(self, wd, username, password):
         # login
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys("admin")
+        wd.find_element_by_name("user").send_keys(username)
         wd.find_element_by_id("LoginForm").click()
         wd.find_element_by_name("pass").click()
         wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys("secret")
+        wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//form[@id='LoginForm']/input[3]").click()
 
     def open_webpage(self, wd):
