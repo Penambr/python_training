@@ -47,10 +47,6 @@ class test_add_group(unittest.TestCase):
         wd.find_element_by_name("submit").click()
         wd.find_element_by_link_text("groups").click()
         wd.find_element_by_link_text("Logout").click()
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").send_keys("\\undefined")
-        wd.find_element_by_name("pass").click()
-        wd.find_element_by_name("pass").send_keys("\\undefined")
         self.assertTrue(success)
 
     def tearDown(self):
