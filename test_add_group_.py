@@ -65,11 +65,9 @@ class test_add_group(unittest.TestCase):
         # login
         wd.find_element_by_name("pass").click()
         wd.find_element_by_id("LoginForm").click()
-        wd.find_element_by_id("LoginForm").click()
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
-        wd.find_element_by_id("LoginForm").click()
         wd.find_element_by_name("pass").click()
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys(password)
