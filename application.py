@@ -14,7 +14,7 @@ class Application:
 
     def login(self, username, password):
         wd = self.wd
-        # login
+        self.open_home_page()
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
@@ -25,14 +25,12 @@ class Application:
 
     def open_groups_page(self):
         wd = self.wd
-        # open groups page
         wd.find_element_by_link_text("groups").click()
 
     def create_group(self, group):
         wd = self.wd
-        # init group creation
+        self.open_groups_page()
         wd.find_element_by_name("new").click()
-        # fill group form
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
         wd.find_element_by_name("group_name").send_keys(group.name)

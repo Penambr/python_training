@@ -14,7 +14,7 @@ class Userapplication:
 
     def login(self, username, password):
         wd = self.wd
-        # login
+        self.open_webpage()
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
@@ -26,12 +26,11 @@ class Userapplication:
 
     def open_user_creation(self):
         wd = self.wd
-        # init user creation
         wd.find_element_by_link_text("add new").click()
 
     def create_user(self, users):
         wd = self.wd
-        # fill users form
+        self.open_user_creation()
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(users.firs_name)
