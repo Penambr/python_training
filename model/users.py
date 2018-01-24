@@ -16,3 +16,4 @@ class Users:
         self.work = work
         self.fax = fax
         self.email = email
+
