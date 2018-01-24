@@ -56,11 +56,6 @@ class UserHelper:
     def delete_first_user(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
-        #edit user
-        #wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
-        #wd.find_element_by_xpath("//div[@id='content']/form[2]/input[2]").click()
-        #submit deletion
-        #wd.find_element_by_name("update").click()
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
         wd.find_element_by_xpath("//div[@id='content']/form[2]/input[2]").click()
 
