@@ -14,14 +14,9 @@ class Application:
         self.sessionusers = SessionHelperUsers(self)
         self.users = UserHelper(self)
 
-
     def open_home_page(self):
         wd = self.wd
         wd.get("http://localhost/addressbook/")
-
-
-    def destroy(self):
-        self.wd.quit()
 
     def open_webpage(self):
         wd = self.wd
