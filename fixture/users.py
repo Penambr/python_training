@@ -5,16 +5,14 @@ class UserHelper:
     def __init__(self, app):
         self.app = app
 
-    def open_webpage(self):
-        wd = self.wd
-        wd.get("http://localhost/addressbook/")
-
     def open_user_creation(self):
         wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
         wd.find_element_by_link_text("add new").click()
 
     def create(self, users):
         wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
         self.open_user_creation()
         wd.find_element_by_name("firstname").send_keys(users.firs_name)
         wd.find_element_by_name("middlename").send_keys(users.middle_name)
@@ -35,9 +33,6 @@ class UserHelper:
         wd.find_element_by_link_text("home").click()
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
         wd.find_element_by_xpath("//div[@id='content']/form[2]/input[2]").click()
-
-    def tearDown(self):
-        self.wd.quit()
 
     def return_to_users_page(self):
         wd = self.app.wd
@@ -61,9 +56,3 @@ class UserHelper:
         wd.find_element_by_name("fax").send_keys("11")
         wd.find_element_by_name("email").send_keys("12")
         wd.find_element_by_name("update").click()
-#        wd.find_element_by_xpath("//div[@id='content']/form[2]/input[2]").click()
-
-    def return_to_users_page(self):
-        wd = self.app.wd
-        # return to users page
-        wd.find_element_by_link_text("home").click()
