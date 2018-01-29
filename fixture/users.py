@@ -36,7 +36,6 @@ class UserHelper:
 
     def return_to_users_page(self):
         wd = self.app.wd
-        # return to users page
         wd.find_element_by_link_text("home").click()
 
     def edit_first_user(self):
@@ -56,3 +55,8 @@ class UserHelper:
         wd.find_element_by_name("fax").send_keys("11")
         wd.find_element_by_name("email").send_keys("12")
         wd.find_element_by_name("update").click()
+
+    def count(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
+        return len(wd.find_elements_by_name("selected[]"))
