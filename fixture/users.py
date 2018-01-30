@@ -7,6 +7,7 @@ class UserHelper:
 
     def open_webpage(self):
         wd = self.wd
+        wd.find_element_by_link_text("home").click()
         if not (wd.current_url.endswith("/") and len(wd.find_elements_by_name("searchform")) > 0):
             wd.get("http://localhost/addressbook/")
 
