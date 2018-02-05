@@ -1,4 +1,4 @@
-
+from model.users import Users
 
 class UserHelper:
 
@@ -6,7 +6,7 @@ class UserHelper:
         self.app = app
 
     def open_webpage(self):
-        wd = self.wd
+        wd = self.app.wd
         wd.find_element_by_link_text("home").click()
         if not (wd.current_url.endswith("/") and len(wd.find_elements_by_name("searchform")) > 0):
             wd.get("http://localhost/addressbook/")
@@ -20,17 +20,17 @@ class UserHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
         self.open_user_creation()
-        wd.find_element_by_name("firstname").send_keys(users.firs_name)
-        wd.find_element_by_name("middlename").send_keys(users.middle_name)
+        wd.find_element_by_name("firstname").send_keys(users.first_name)
+#        wd.find_element_by_name("middlename").send_keys(users.middle_name)
         wd.find_element_by_name("lastname").send_keys(users.last_name)
-        wd.find_element_by_name("nickname").send_keys(users.nick_name)
-        wd.find_element_by_name("title").send_keys(users.title)
-        wd.find_element_by_name("company").send_keys(users.companyname)
-        wd.find_element_by_name("address").send_keys(users.address)
-        wd.find_element_by_name("home").send_keys(users.home)
+#        wd.find_element_by_name("nickname").send_keys(users.nick_name)
+#        wd.find_element_by_name("title").send_keys(users.title)
+#        wd.find_element_by_name("company").send_keys(users.companyname)
+#        wd.find_element_by_name("address").send_keys(users.address)
+#        wd.find_element_by_name("home").send_keys(users.home)
         wd.find_element_by_name("mobile").send_keys(users.mobile)
-        wd.find_element_by_name("work").send_keys(users.work)
-        wd.find_element_by_name("fax").send_keys(users.fax)
+#        wd.find_element_by_name("work").send_keys(users.work)
+#        wd.find_element_by_name("fax").send_keys(users.fax)
         wd.find_element_by_name("email").send_keys(users.email)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
@@ -49,16 +49,16 @@ class UserHelper:
         wd.find_element_by_link_text("home").click()
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
         wd.find_element_by_name("firstname").send_keys("1")
-        wd.find_element_by_name("middlename").send_keys("2")
+#        wd.find_element_by_name("middlename").send_keys("2")
         wd.find_element_by_name("lastname").send_keys("3")
-        wd.find_element_by_name("nickname").send_keys("4")
-        wd.find_element_by_name("title").send_keys("5")
-        wd.find_element_by_name("company").send_keys("6")
-        wd.find_element_by_name("address").send_keys("7")
-        wd.find_element_by_name("home").send_keys("8")
+#        wd.find_element_by_name("nickname").send_keys("4")
+#        wd.find_element_by_name("title").send_keys("5")
+#        wd.find_element_by_name("company").send_keys("6")
+#        wd.find_element_by_name("address").send_keys("7")
+#        wd.find_element_by_name("home").send_keys("8")
         wd.find_element_by_name("mobile").send_keys("9")
-        wd.find_element_by_name("work").send_keys("10")
-        wd.find_element_by_name("fax").send_keys("11")
+#        wd.find_element_by_name("work").send_keys("10")
+#        wd.find_element_by_name("fax").send_keys("11")
         wd.find_element_by_name("email").send_keys("12")
         wd.find_element_by_name("update").click()
 
@@ -66,3 +66,13 @@ class UserHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
         return len(wd.find_elements_by_name("selected[]"))
+
+    def get_users_list(self):
+        wd = self.app.wd
+        self.open_webpage()
+        user = []
+        for element in wd.find_elements_by_css_selector("td.center"):
+            text = element.text
+            id = element.find_element_by_xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input").get_attribute("value")
+            user.append(Users(first_name=text, last_name=text, email=text, mobile=text, id=id))
+        return user
