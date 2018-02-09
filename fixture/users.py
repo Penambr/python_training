@@ -22,16 +22,16 @@ class UserHelper:
         self.open_user_creation()
         wd.find_element_by_name("firstname").send_keys(users.first_name)
 #        wd.find_element_by_name("middlename").send_keys(users.middle_name)
-        wd.find_element_by_name("lastname").send_keys(users.last_name)
+#        wd.find_element_by_name("lastname").send_keys(users.last_name)
 #        wd.find_element_by_name("nickname").send_keys(users.nick_name)
 #        wd.find_element_by_name("title").send_keys(users.title)
 #        wd.find_element_by_name("company").send_keys(users.companyname)
 #        wd.find_element_by_name("address").send_keys(users.address)
 #        wd.find_element_by_name("home").send_keys(users.home)
-        wd.find_element_by_name("mobile").send_keys(users.mobile)
+#        wd.find_element_by_name("mobile").send_keys(users.mobile)
 #        wd.find_element_by_name("work").send_keys(users.work)
 #        wd.find_element_by_name("fax").send_keys(users.fax)
-        wd.find_element_by_name("email").send_keys(users.email)
+ #       wd.find_element_by_name("email").send_keys(users.email)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
     def delete_first_user(self):
@@ -50,17 +50,17 @@ class UserHelper:
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
         wd.find_element_by_name("firstname").send_keys("1")
 #        wd.find_element_by_name("middlename").send_keys("2")
-        wd.find_element_by_name("lastname").send_keys("3")
+#        wd.find_element_by_name("lastname").send_keys("3")
 #        wd.find_element_by_name("nickname").send_keys("4")
 #        wd.find_element_by_name("title").send_keys("5")
 #        wd.find_element_by_name("company").send_keys("6")
 #        wd.find_element_by_name("address").send_keys("7")
 #        wd.find_element_by_name("home").send_keys("8")
-        wd.find_element_by_name("mobile").send_keys("9")
+#        wd.find_element_by_name("mobile").send_keys("9")
 #        wd.find_element_by_name("work").send_keys("10")
 #        wd.find_element_by_name("fax").send_keys("11")
-        wd.find_element_by_name("email").send_keys("12")
-        wd.find_element_by_name("update").click()
+#        wd.find_element_by_name("email").send_keys("12")
+#        wd.find_element_by_name("update").click()
 
     def count(self):
         wd = self.app.wd
@@ -70,9 +70,12 @@ class UserHelper:
     def get_users_list(self):
         wd = self.app.wd
         self.open_webpage()
-        user = []
-        for element in wd.find_elements_by_css_selector("td.center"):
+#        self.open_user_creation()
+        users = []
+        for element in wd.find_elements_by_css_selector("entry"):
             text = element.text
-            id = element.find_element_by_xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input").get_attribute("value")
-            user.append(Users(first_name=text, last_name=text, email=text, mobile=text, id=id))
-        return user
+            id = element.find_element_by_css_selector("td.center")
+            users.append(Users(first_name=text, id=id))
+        return users
+#            id = element.find_element_by_xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input").get_attribute("value")
+#            user.append(Users(first_name=text, last_name=text2, email=text3, mobile=text4, id=id))
