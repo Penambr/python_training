@@ -16,6 +16,15 @@ class UserHelper:
         wd.find_element_by_link_text("home").click()
         wd.find_element_by_link_text("add new").click()
 
+    def fill_users_form(self, user):
+        wd = self.app.wd
+        self.change_field_value("firstname", user.first_name)
+
+    def change_field_value(self, field_name, text):
+        wd = self.app.wd
+        if text is not None:
+            wd.find_element_by_name(field_name).click()
+
     def create(self, users):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
@@ -44,10 +53,11 @@ class UserHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
 
-    def edit_first_user(self):
+    def edit_first_user(self, new_user_data):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
+        self.fill_users_form(new_user_data)
         wd.find_element_by_name("firstname").send_keys("1")
 #        wd.find_element_by_name("middlename").send_keys("2")
 #        wd.find_element_by_name("lastname").send_keys("3")
@@ -61,6 +71,7 @@ class UserHelper:
 #        wd.find_element_by_name("fax").send_keys("11")
 #        wd.find_element_by_name("email").send_keys("12")
 #        wd.find_element_by_name("update").click()
+        self.return_to_users_page()
 
     def count(self):
         wd = self.app.wd
@@ -70,12 +81,11 @@ class UserHelper:
     def get_users_list(self):
         wd = self.app.wd
         self.open_webpage()
-#        self.open_user_creation()
         users = []
-        for element in wd.find_elements_by_css_selector("entry"):
-            text = element.text
-            id = element.find_element_by_css_selector("td.center")
-            users.append(Users(first_name=text, id=id))
+        for element in wd.find_elements_by_name("entry"):
+            cells = element.find_element_by_tag_name("td")
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            users.append(Users(first_name=cells, id=id))
         return users
-#            id = element.find_element_by_xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input").get_attribute("value")
+#
 #            user.append(Users(first_name=text, last_name=text2, email=text3, mobile=text4, id=id))
