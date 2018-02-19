@@ -42,21 +42,37 @@ class UserHelper:
 #        wd.find_element_by_name("fax").send_keys(users.fax)
  #       wd.find_element_by_name("email").send_keys(users.email)
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        self.user_cache = None
+
+    def select_user_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
+
+    def click_edit_user_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_tag_name("td")[index].click()
 
     def delete_first_user(self):
+        self.delete_user_by_index(0)
+
+    def delete_user_by_index(self, index):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
+        self.select_user_by_index(index)
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
         wd.find_element_by_xpath("//div[@id='content']/form[2]/input[2]").click()
+        wd.find_element_by_link_text("home").click()
+        self.user_cache = None
 
     def return_to_users_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
 
-    def edit_first_user(self, new_user_data):
+    def edit_user_by_index(self, index, new_user_data):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
-        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
+        self.click_edit_user_by_index(index)
+#        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
         self.fill_users_form(new_user_data)
         wd.find_element_by_name("firstname").send_keys("1")
 #        wd.find_element_by_name("middlename").send_keys("2")
@@ -70,22 +86,29 @@ class UserHelper:
 #        wd.find_element_by_name("work").send_keys("10")
 #        wd.find_element_by_name("fax").send_keys("11")
 #        wd.find_element_by_name("email").send_keys("12")
-#        wd.find_element_by_name("update").click()
+        wd.find_element_by_name("update").click()
         self.return_to_users_page()
+        self.user_cache = None
+
 
     def count(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
         return len(wd.find_elements_by_name("selected[]"))
 
+    user_cache = None
+
+
     def get_users_list(self):
-        wd = self.app.wd
-        self.open_webpage()
-        users = []
-        for element in wd.find_elements_by_name("entry"):
-            cells = element.find_element_by_tag_name("td")
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            users.append(Users(first_name=cells, id=id))
-        return users
-#
+        if self.user_cache is None:
+            wd = self.app.wd
+            self.open_webpage()
+            self.user_cache = []
+            for element in wd.find_elements_by_name("entry"):
+ #               cells = element.find_elements_by_tag_name("td")
+                cells = element.find_elements_by_name("title")
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                self.user_cache.append(Users(first_name=cells, id=id))
+        return list(self.user_cache)
+
 #            user.append(Users(first_name=text, last_name=text2, email=text3, mobile=text4, id=id))
