@@ -3,7 +3,7 @@ from random import randrange
 
 def test_delete_some_user(app):
     if app.users.count() == 0:
-        app.users.create(Users(first_name="testuser"))
+        app.users.create(Users(firstname="testuser"))
     old_users = app.users.get_users_list()
     index = randrange(len(old_users))
     app.users.delete_user_by_index(index)

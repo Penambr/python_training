@@ -3,10 +3,10 @@ from random import randrange
 
 def test_edit_first_user_name(app):
     if app.users.count() == 0:
-        app.users.create(Users(first_name="testuser"))
+        app.users.create(Users(firstname="testuser"))
     old_users = app.users.get_users_list()
     index = randrange(len(old_users))
-    user = Users(first_name="New user")
+    user = Users(firstname="New user")
     user.id = old_users[index].id
     app.users.edit_user_by_index(index, user)
     new_users = app.users.get_users_list()
