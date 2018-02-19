@@ -110,5 +110,3 @@ class UserHelper:
                 id = element.find_element_by_name("selected[]").get_attribute("value")
                 self.user_cache.append(Users(first_name=cells, id=id))
         return list(self.user_cache)
-
-#            user.append(Users(first_name=text, last_name=text2, email=text3, mobile=text4, id=id))
