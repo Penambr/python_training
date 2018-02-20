@@ -18,7 +18,7 @@ class UserHelper:
 
     def fill_users_form(self, user):
         wd = self.app.wd
-        self.change_field_value("firstname", user.first_name)
+        self.change_field_value("firstname", user.firstname)
 
     def change_field_value(self, field_name, text):
         wd = self.app.wd
@@ -26,7 +26,6 @@ class UserHelper:
             wd.find_element_by_name(field_name).click()
             wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
-
 
     def create(self, users):
         wd = self.app.wd
@@ -46,7 +45,10 @@ class UserHelper:
 
     def click_edit_user_by_index(self, index):
         wd = self.app.wd
-        wd.find_elements_by_tag_name("td")[index].click()
+        self.app.open_webpage()
+        row = wd.find_elements_by_name("entry")[index]
+        cell = row.find_elements_by_tag_name("td")[7]
+        cell.find_element_by_tag_name("a").click()
 
     def delete_first_user(self):
         self.delete_user_by_index(0)
@@ -60,24 +62,18 @@ class UserHelper:
         wd.find_element_by_link_text("home").click()
         self.user_cache = None
 
-    def return_to_users_page(self):
-        wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
-
     def edit_user_by_index(self, index, new_user_data):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
         self.click_edit_user_by_index(index)
-#        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
         self.fill_users_form(new_user_data)
-        wd.find_element_by_name("firstname").send_keys("1")
-        wd.find_element_by_name("lastname").send_keys("3")
-#        wd.find_element_by_name("home").send_keys("8")
-#        wd.find_element_by_name("mobile").send_keys("9")
-#        wd.find_element_by_name("work").send_keys("10")
         wd.find_element_by_name("update").click()
         self.return_to_users_page()
         self.user_cache = None
+
+    def return_to_users_page(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
 
     def count(self):
         wd = self.app.wd
@@ -93,8 +89,8 @@ class UserHelper:
             self.user_cache = []
             for row in wd.find_elements_by_name("entry"):
                 cells = row.find_elements_by_tag_name("td")
-                firstname = cells[1].text
-                lastname = cells[2].text
+                firstname = cells[2].text
+                lastname = cells[1].text
                 id = cells[0].find_element_by_tag_name("input").get_attribute("value")
                 self.user_cache.append(Users(firstname=firstname, lastname=lastname, id=id))
         return list(self.user_cache)

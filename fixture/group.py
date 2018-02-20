@@ -48,34 +48,26 @@ class GroupHelper:
         wd = self.app.wd
         self.open_groups_page()
         self.select_group_by_index(index)
-        # submit deletion
         wd.find_element_by_name("delete").click()
         self.return_to_groups_page()
         self.group_cache = None
 
     def edit_first_group(self):
-        self.edit_group_by_index(0)
-
+        self.edit_group_by_index(1)
 
     def edit_group_by_index(self, index, new_group_data):
         wd = self.app.wd
         self.open_groups_page()
         self.select_group_by_index(index)
-        # open modi form
         wd.find_element_by_name("edit").click()
-        #fill group form
         self.fill_group_form(new_group_data)
-        # submit modi
         wd.find_element_by_name("update").click()
         self.return_to_groups_page()
         self.group_cache = None
 
-
     def return_to_groups_page(self):
         wd = self.app.wd
-        # return to groups page
         wd.find_element_by_link_text("groups").click()
-
 
     def count(self):
         wd = self.app.wd

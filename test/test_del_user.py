@@ -10,4 +10,4 @@ def test_delete_some_user(app):
     new_users = app.users.get_users_list()
     assert len(old_users) - 1 == len(new_users)
     old_users[index:index+1] = []
-#    assert old_users == new_users
+#    assert new_users == old_users
