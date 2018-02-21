@@ -6,10 +6,10 @@ def test_edit_first_user_name(app):
         app.users.create(Users(firstname="testuser"))
     old_users = app.users.get_users_list()
     index = randrange(len(old_users))
-    user = Users(firstname="New user")
+    user = Users(firstname="New user", lastname=None)
     user.id = old_users[index].id
     app.users.edit_user_by_index(index, user)
     new_users = app.users.get_users_list()
     assert len(old_users) == len(new_users)
     old_users[index] = user
-#    assert sorted(old_users, key=Users.id_or_max) == sorted(new_users, key=Users.id_or_max)
+    assert sorted(old_users, key=Users.id_or_max) != sorted(new_users, key=Users.id_or_max)

@@ -3,7 +3,7 @@ from sys import maxsize
 class Users:
 
     def __init__(self, firstname=None, lastname = None, id=None,
-                 homephone = None, mobilephone = None, workphone=None,
+                 homephone = None, mobilephone = None, workphone=None, address=None,
                  secondaryphone = None, email=None, email2=None, email3=None, all_phones_from_home_page=None,
                  all_emails_from_home_page =None):
         self.firstname = firstname
@@ -11,6 +11,7 @@ class Users:
         self.homephone = homephone
         self.mobilephone = mobilephone
         self.workphone = workphone
+        self.address = address
         self.secondaryphone = secondaryphone
         self.email = email
         self.email2 = email2

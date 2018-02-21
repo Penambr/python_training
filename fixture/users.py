@@ -38,6 +38,11 @@ class UserHelper:
         wd.find_element_by_name("mobile").send_keys(users.mobilephone)
         wd.find_element_by_name("work").send_keys(users.workphone)
         wd.find_element_by_name("phone2").send_keys(users.secondaryphone)
+        wd.find_element_by_name("email").send_keys(users.email)
+        wd.find_element_by_name("email2").send_keys(users.email2)
+        wd.find_element_by_name("email3").send_keys(users.email3)
+        wd.find_element_by_name("address").send_keys(users.address)
+
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.user_cache = None
 
@@ -94,9 +99,10 @@ class UserHelper:
                 firstname = cells[2].text
                 lastname = cells[1].text
                 id = cells[0].find_element_by_tag_name("input").get_attribute("value")
+                address = cells[3].text
                 all_phones = cells[5].text
                 all_emails = cells[4].text
-                self.user_cache.append(Users(firstname=firstname, lastname=lastname, id=id,
+                self.user_cache.append(Users(firstname=firstname, lastname=lastname, id=id, address=address,
                                              all_phones_from_home_page=all_phones, all_emails_from_home_page=all_emails))
         return list(self.user_cache)
 
@@ -125,10 +131,11 @@ class UserHelper:
         workphone = wd.find_element_by_name("work").get_attribute("value")
         mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
         secondaryphone = wd.find_element_by_name("phone2").get_attribute("value")
+        address = wd.find_element_by_name("address").text
         email = wd.find_element_by_name("email").get_attribute("value")
         email2 = wd.find_element_by_name("email2").get_attribute("value")
         email3 = wd.find_element_by_name("email3").get_attribute("value")
-        return Users(firstname=firstname,lastname=lastname, id=id, homephone=homephone, workphone=workphone,
+        return Users(firstname=firstname,lastname=lastname, id=id, homephone=homephone, workphone=workphone,address=address,
                      mobilephone=mobilephone, secondaryphone=secondaryphone, email=email, email2=email2, email3=email3)
 
     def get_users_from_view_page(self, index):
