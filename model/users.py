@@ -2,7 +2,7 @@ from sys import maxsize
 
 class Users:
 
-    def __init__(self, firstname=None, lastname = None, homephone = None, mobilephone = None, workphone=None, secondaryphone=None, id=None):
+    def __init__(self, firstname=None, lastname = None, homephone = None, mobilephone = None, workphone=None, secondaryphone = None, id=None):
         self.firstname = firstname
         self.id = id
         self.lastname = lastname
