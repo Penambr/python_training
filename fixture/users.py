@@ -50,6 +50,11 @@ class UserHelper:
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
 
+    def select_user_by_id(self, id):
+        wd = self.app.wd
+#        wd.find_elements_by_name("selected[]")[id].click()
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+
     def click_edit_user_by_index(self, index):
         wd = self.app.wd
         self.app.open_webpage()
@@ -64,6 +69,15 @@ class UserHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
         self.select_user_by_index(index)
+        wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
+        wd.find_element_by_xpath("//div[@id='content']/form[2]/input[2]").click()
+        wd.find_element_by_link_text("home").click()
+        self.user_cache = None
+
+    def delete_user_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
+        self.select_user_by_id(id)
         wd.find_element_by_xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img").click()
         wd.find_element_by_xpath("//div[@id='content']/form[2]/input[2]").click()
         wd.find_element_by_link_text("home").click()
